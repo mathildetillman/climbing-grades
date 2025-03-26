@@ -1,103 +1,159 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
 
-export default function Home() {
+const TabsPage = () => {
+  const [activeTab, setActiveTab] = useState<"climbing" | "bouldering">(
+    "climbing"
+  );
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="max-w-2xl mx-auto my-16 flex flex-col gap-16">
+      {/* Tabs */}
+      <div className="flex justify-center gap-6 p-4">
+        <button
+          className={`w-40 h-16 text-xl font-semibold rounded-lg transition-all duration-300 shadow-md
+      ${
+        activeTab === "climbing"
+          ? "bg-blue-500 text-white shadow-lg scale-105"
+          : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+      }`}
+          onClick={() => setActiveTab("climbing")}
+        >
+          Climbing
+        </button>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          className={`w-40 h-16 text-xl font-semibold rounded-lg transition-all duration-300 shadow-md
+      ${
+        activeTab === "bouldering"
+          ? "bg-blue-500 text-white shadow-lg scale-105"
+          : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+      }`}
+          onClick={() => setActiveTab("bouldering")}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          Bouldering
+        </button>
+      </div>
+
+      {/* Tab Content */}
+      <div className="mx-4">
+        {activeTab === "climbing" ? <ClimbingTable /> : <BoulderingTable />}
+      </div>
     </div>
   );
-}
+};
+
+const ClimbingTable = () => {
+  const data = [
+    { yds: "5.2", french: "1" },
+    { yds: "5.3", french: "2" },
+    { yds: "5.4", french: "3" },
+    { yds: "5.5", french: "4" },
+    { yds: "5.6", french: "5a" },
+    { yds: "5.7", french: "5b" },
+    { yds: "5.8", french: "5c" },
+    { yds: "5.9", french: "6a" },
+    { yds: "5.10a", french: "6a+" },
+    { yds: "5.10b", french: "6a+" },
+    { yds: "5.10c", french: "6b" },
+    { yds: "5.10d", french: "6b+" },
+    { yds: "5.11a", french: "6c" },
+    { yds: "5.11b", french: "6c+" },
+    { yds: "5.11c", french: "7a" },
+    { yds: "5.11d", french: "7a+" },
+    { yds: "5.12a", french: "7b" },
+    { yds: "5.12b", french: "7b+" },
+    { yds: "5.12c", french: "7c" },
+    { yds: "5.12d", french: "7c+" },
+    { yds: "5.13a", french: "7c+" },
+    { yds: "5.13b", french: "8a" },
+    { yds: "5.13c", french: "8a+" },
+    { yds: "5.13d", french: "8b" },
+    { yds: "5.14a", french: "8b+" },
+    { yds: "5.14b", french: "8c" },
+    { yds: "5.14c", french: "8c+" },
+    { yds: "5.14d", french: "9a" },
+    { yds: "5.15a", french: "9a+" },
+    { yds: "5.15b", french: "9b" },
+    { yds: "5.15c", french: "9b+" },
+  ];
+
+  return (
+    <table className="w-full border-collapse table-fixed shadow-lg rounded-lg overflow-hidden">
+      <thead>
+        <tr className="bg-gradient-to-r from-gray-700 to-gray-900 text-white">
+          <th className="border border-gray-600 p-3 text-left">YDS</th>
+          <th className="border border-gray-600 p-3 text-left">French</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((grade, index) => (
+          <tr
+            key={index}
+            className={`text-gray-900 ${
+              index % 2 === 0 ? "bg-gray-100" : "bg-white"
+            } hover:bg-gray-200 transition`}
+          >
+            <td className="border border-gray-300 p-3 w-1/2">{grade.yds}</td>
+            <td className="border border-gray-300 p-3 w-1/2">{grade.french}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+const BoulderingTable = () => {
+  const data = [
+    { v_scale: "V0", font_scale: "4" },
+    { v_scale: "V1", font_scale: "5" },
+    { v_scale: "V2", font_scale: "5+" },
+    { v_scale: "V3", font_scale: "6a" },
+    { v_scale: "V4", font_scale: "6a+" },
+    { v_scale: "V5", font_scale: "6c" },
+    { v_scale: "V6", font_scale: "6c+" },
+    { v_scale: "", font_scale: "7a" },
+    { v_scale: "V7", font_scale: "7a+" },
+    { v_scale: "V8", font_scale: "7b" },
+    { v_scale: "", font_scale: "7b+" },
+    { v_scale: "V9", font_scale: "7c" },
+    { v_scale: "V10", font_scale: "7c+" },
+    { v_scale: "V11", font_scale: "8a" },
+    { v_scale: "V12", font_scale: "8a+" },
+    { v_scale: "V13", font_scale: "8b" },
+    { v_scale: "V14", font_scale: "8b+" },
+    { v_scale: "V15", font_scale: "9a" },
+    { v_scale: "V16", font_scale: "8c+" },
+    { v_scale: "V17", font_scale: "9a" },
+  ];
+
+  return (
+    <table className="w-full border-collapse table-fixed shadow-lg rounded-lg overflow-hidden">
+      <thead>
+        <tr className="bg-gradient-to-r from-gray-700 to-gray-900 text-white">
+          <th className="border border-gray-600 p-3 text-left">V-Scale</th>
+          <th className="border border-gray-600 p-3 text-left">Font Scale</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((grade, index) => (
+          <tr
+            key={index}
+            className={`text-gray-900 ${
+              index % 2 === 0 ? "bg-gray-100" : "bg-white"
+            } hover:bg-gray-200 transition`}
+          >
+            <td className="border border-gray-300 p-3 w-1/2">
+              {grade.v_scale}
+            </td>
+            <td className="border border-gray-300 p-3 w-1/2">
+              {grade.font_scale}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+export default TabsPage;
